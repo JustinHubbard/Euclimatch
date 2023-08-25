@@ -1,0 +1,13 @@
+useDynLib(Euclimatch, .registration=TRUE)
+
+export(climatch_par)
+export(climatch_perc)
+export(climatch_vec)
+
+import(RcppParallel)
+import(doParallel)
+importFrom(Rcpp, evalCpp)
+importFrom(foreach,"%:%")
+importFrom(foreach,"%dopar%")
+
+exportPattern("^[[:alpha:]]+")

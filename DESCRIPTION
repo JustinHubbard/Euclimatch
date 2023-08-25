@@ -1,0 +1,12 @@
+Package: Euclimatch
+Type: Package
+Title: Euclidean Climatch Algorithm
+Version: 0.1.0
+Author: Justin A.G. Hubbard, D. Andrew R. Drake, Nicholas E. Mandrak
+Maintainer: Justin A.G. Hubbard <justin.hubbard@mail.utoronto.ca>
+Description: Interface for performing climate matching between regions using the Euclidean Climatch algorithm. Functions provides the percent of climatch scores >=6 or a vector of climatch scores. Also includes function for parallel computing.
+License: GPL (>= 2)
+Encoding: UTF-8
+Imports: Rcpp (>= 1.0.10), foreach, doParallel, RcppParallel
+LinkingTo: Rcpp
+RoxygenNote: 7.2.3
