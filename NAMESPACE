@@ -1,8 +1,8 @@
 useDynLib(Euclimatch, .registration=TRUE)
 
 export(climatch_par)
-export(climatch_perc)
 export(climatch_vec)
+export(climatch)
 
 import(RcppParallel)
 import(doParallel)

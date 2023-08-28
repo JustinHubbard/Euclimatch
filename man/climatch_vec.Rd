@@ -7,22 +7,25 @@
 climatch_vec(recipient, source, globvar)
 }
 \arguments{
-\item{recipient}{List of data.frames of the recipient regions}
+\item{recipient}{A data.frame of climatic variables for the recipient region}
 
-\item{source}{List of data.frames of the source regions}
+\item{source}{A data.frame of climatic variables for the source region}
 
-\item{globvar}{Vector of the global variance of each variable}
+\item{globvar}{A vector of the global variance of each climate variable}
 }
 \value{
-Vector of climatch scores corresponding to each grid cell within recipient
+A vector of climatch scores corresponding to each grid cell within recipient region
 }
 \description{
 Vector of the climatch scores within the recipient region
 }
 \examples{
-i <- as.data.frame(matrix(runif(n=180, min=1, max=20), nrow=60)) # Fake source climate data.
-j <- as.data.frame(matrix(runif(n=300, min=10, max=40), nrow=100)) # Fake recipient data.
+i <- as.data.frame(matrix(runif(n=180, min=1, max=20), nrow=60)) # Fake source climate data
+j <- as.data.frame(matrix(runif(n=300, min=10, max=40), nrow=100)) # Fake recipient data
 variance <- c(600, 800, 450) # Fake global variance
 
 climatch_vec(recipient = j, source = i, globvar = variance)
+}
+\references{
+Crombie, J., Brown, L., Lizzio, J., & Hood, G. (2008). Climatch user manual. Australian Government, Bureau of Rural Sciences.
 }

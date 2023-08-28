@@ -10,19 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// climatch_perc
-double climatch_perc(DataFrame recipient, DataFrame source, NumericVector globvar);
-RcppExport SEXP _Euclimatch_climatch_perc(SEXP recipientSEXP, SEXP sourceSEXP, SEXP globvarSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< DataFrame >::type recipient(recipientSEXP);
-    Rcpp::traits::input_parameter< DataFrame >::type source(sourceSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type globvar(globvarSEXP);
-    rcpp_result_gen = Rcpp::wrap(climatch_perc(recipient, source, globvar));
-    return rcpp_result_gen;
-END_RCPP
-}
 // climatch_vec
 NumericVector climatch_vec(DataFrame recipient, DataFrame source, NumericVector globvar);
 RcppExport SEXP _Euclimatch_climatch_vec(SEXP recipientSEXP, SEXP sourceSEXP, SEXP globvarSEXP) {
@@ -38,7 +25,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_Euclimatch_climatch_perc", (DL_FUNC) &_Euclimatch_climatch_perc, 3},
     {"_Euclimatch_climatch_vec", (DL_FUNC) &_Euclimatch_climatch_vec, 3},
     {NULL, NULL, 0}
 };
