@@ -5,11 +5,13 @@ using namespace Rcpp;
 //'
 //' Vector of the climatch scores within the recipient region
 //'
-//' @param recipient A data.frame of climatic variables for the recipient region
-//' @param source A data.frame of climatic variables for the source region
-//' @param globvar A vector of the global variance of each climate variable
+//' @param recipient A data.frame of climatic variables for the recipient region.
+//' @param source A data.frame of climatic variables for the source region.
+//' @param globvar A vector of the global variance of each climate variable, in the same order as the columns of source and recipient region data.frames.
 //'
-//' @return A vector of climatch scores corresponding to each grid cell within recipient region
+//' @return A vector of climatch scores corresponding to each grid cell within recipient region, i.e., each row in the recipient data.frame.
+//'
+//' @usage climatch_vec(recipient, source, globvar)
 //'
 //' @export
 //' @references Crombie, J., Brown, L., Lizzio, J., & Hood, G. (2008). Climatch user manual. Australian Government, Bureau of Rural Sciences.
@@ -20,6 +22,7 @@ using namespace Rcpp;
 //' variance <- c(600, 800, 450) # Fake global variance
 //'
 //' climatch_vec(recipient = j, source = i, globvar = variance)
+//'
 // [[Rcpp::export]]
 NumericVector climatch_vec(DataFrame recipient, DataFrame source, NumericVector globvar){
   // Convert dataframes to matrices
@@ -55,5 +58,7 @@ NumericVector climatch_vec(DataFrame recipient, DataFrame source, NumericVector 
     jmax[j] = (1-imin)*10; // Convert match to 0-10 score
   }
 
-  return jmax;
+ NumericVector max = ifelse(jmax<0, 0, jmax);
+
+  return max;
 }

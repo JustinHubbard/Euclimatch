@@ -1,20 +1,28 @@
 #' Run climatch in parallel
 #'
-#' @param recipient List of dataframes of the recipient regions
-#' @param source List of dataframes of the source regions
+#' @param recipient List of data.frames of the recipient regions
+#' @param source List of dataf.rames of the source regions
 #' @param biovar Vector of the columns (climate variables) to use, default all columns
 #' @param globvar Vector of the global variance of each variable
 #' @param ncores The number of cores to use in parallel
-#' @param type Choose between 'perc' (default) or 'mean' passed to climatch() and 'vec' passes to climatch_vec()
-#' @param score The score to use in calculating the percentage match, default is 6
-#' @return 'perc' and 'mean' returns dataframe of climatch within recipients (rows) for each source represented in columns, 'vec' returns dataframe of climatch of a recipient (each column corresponds to grid cell), to sources (corresponding to rows)
+#' @param type Choose between "perc" (default) or "mean" passed to climatch() and "vec" passes to climatch_vec()
+#' @param threshold The climatch score (0-10) to use in calculating the percentage match, which is the number of grid cells within the recipient region with a climatch >= the threshold (default is 6).
+#' @return "perc" and "mean" returns data.frame of climatch within recipients (rows) for each source represented in columns, "vec" returns data.frame of climatch of a recipient (each column corresponds to grid cell), to sources (corresponding to rows)
 #'
 #' @importFrom foreach %:% %dopar%
 #' @import doParallel
 #' @import RcppParallel
 #'
+#' @usage climatch_par(recipient,
+#' @usage              source,
+#' @usage              globvar,
+#' @usage              biovar = 1:length(globvar),
+#' @usage              ncores,
+#' @usage              type = "perc",
+#' @usage              threshold = 6)
+#'
 #' @examples
-#' # example code
+#' # Dummy data
 #' i1 <- as.data.frame(matrix(runif(n=180, min=1, max=20), nrow=60)) # Fake source climate data
 #' i2 <- as.data.frame(matrix(runif(n=180, min=20, max=40), nrow=60))
 #' i <- list(i1, i2) # list the source dataframes
@@ -23,15 +31,25 @@
 #' j <- list(j1, j2) # list the recipient dataframes
 #' variance <- c(60, 800, 450) # Fake global variance
 #'
-#' climatch_par(recipient = j, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = 'perc')
-#' climatch_par(recipient = j1, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = 'vec')
+#' # Climate matching
+#' climatch_par(recipient = j, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = "perc")
+#' climatch_par(recipient = j1, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = "vec")
 #'
 #' @export
-climatch_par <- function(recipient, source, globvar, biovar = 1:length(globvar), ncores, type = 'perc', score = 6) {
+climatch_par <- function(recipient, source, globvar, biovar = 1:length(globvar), ncores = 1, type = "perc", threshold = 6) {
 
-  recipient.n <- length(recipient)
-  source.n <- length(source)
-  climatch.pairwise <- data.frame(nrow = recipient.n, ncol = source.n)
+  if(class(recipient)[[1]]=="data.frame"){
+    recipient <- list(recipient)
+  }
+
+  if(class(source)[[1]]=="data.frame"){
+    source <- list(source)
+  }
+
+  recipient_n <- length(recipient)
+  source_n <- length(source)
+
+  climatch_pairwise <- data.frame(nrow = recipient_n, ncol = source_n)
 
   # Set i and j as global variables
   i <- NULL
@@ -43,31 +61,32 @@ climatch_par <- function(recipient, source, globvar, biovar = 1:length(globvar),
 
   if(type == 'perc'){
     # Parallel foreach loop - each row will represent recipient regions and columns for sources
-    climatch.pairwise <- foreach::foreach(i = 1:source.n, .combine = "cbind", .inorder = TRUE, .packages = c("Euclimatch")) %:%
-     foreach::foreach(j = 1:recipient.n, .combine = "c", .inorder = TRUE, .packages = c("Euclimatch")) %dopar% {
-        Euclimatch::climatch(recipient = recipient[[j]][, biovar, drop = FALSE], source = source[[i]][, biovar, drop = FALSE], globvar = globvar, type = type, score = score)
+    climatch_pairwise <- foreach::foreach(i = 1:source_n, .combine = "cbind", .inorder = TRUE, .packages = c("Euclimatch")) %:%
+      foreach::foreach(j = 1:recipient_n, .combine = "c", .inorder = TRUE, .packages = c("Euclimatch")) %dopar% {
+        Euclimatch::climatch_sum(recipient = recipient[[j]][, biovar, drop = FALSE], source = source[[i]][, biovar, drop = FALSE], globvar = globvar, type = type, threshold = threshold)
       }
   }
 
   if(type == 'mean'){
     # Parallel foreach loop - each row will represent recipient regions and columns for sources
-    climatch.pairwise <- foreach::foreach(i = 1:source.n, .combine = "cbind", .inorder = TRUE, .packages = c("Euclimatch")) %:%
-      foreach::foreach(j = 1:recipient.n, .combine = "c", .inorder = TRUE, .packages = c("Euclimatch")) %dopar% {
-        Euclimatch::climatch(recipient = recipient[[j]][, biovar, drop = FALSE], source = source[[i]][, biovar, drop = FALSE], globvar = globvar, type = type)
+    climatch_pairwise <- foreach::foreach(i = 1:source_n, .combine = "cbind", .inorder = TRUE, .packages = c("Euclimatch")) %:%
+      foreach::foreach(j = 1:recipient_n, .combine = "c", .inorder = TRUE, .packages = c("Euclimatch")) %dopar% {
+        Euclimatch::climatch_sum(recipient = recipient[[j]][, biovar, drop = FALSE], source = source[[i]][, biovar, drop = FALSE], globvar = globvar, type = type)
       }
   }
 
   if(type == 'vec'){
-    recipient.n <- nrow(recipient)
-    source.n <- length(source)
-    climatch.pairwise <- data.frame(nrow = source.n, ncol = source.n)
-    # Single foreach loop where each is climatch vector is a row representing mathc to each source, each column in the grid cell or data point in the recipient region
-    climatch.pairwise <- foreach::foreach(i = 1:source.n, .combine = "rbind", .inorder = TRUE, .packages = c("Euclimatch")) %dopar% {
-      Euclimatch::climatch_vec(recipient = recipient[, biovar, drop = FALSE], source = source[[i]][, biovar, drop = FALSE], globvar = globvar)
+    recipient_df <- recipient[[1]]
+    recipient_n <- nrow(recipient_df)
+    source_n <- length(source)
+    climatch_pairwise <- data.frame(nrow = source_n, ncol = recipient_df)
+    # Single foreach loop where each is climatch vector is a row representing match to each source, each column in the grid cell or data point in the recipient region
+    climatch_pairwise <- foreach::foreach(i = 1:source_n, .combine = "rbind", .inorder = TRUE, .packages = c("Euclimatch")) %dopar% {
+      Euclimatch::climatch_vec(recipient = recipient_df[, biovar, drop = FALSE], source = source[[i]][, biovar, drop = FALSE], globvar = globvar)
     }
   }
 
   parallel::stopCluster(nc)  # Stop cluster
-  return(climatch.pairwise)
+  return(climatch_pairwise)
 }
 

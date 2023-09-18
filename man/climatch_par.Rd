@@ -4,20 +4,24 @@
 \alias{climatch_par}
 \title{Run climatch in parallel}
 \usage{
-climatch_par(
-  recipient,
-  source,
-  globvar,
-  biovar = 1:length(globvar),
-  ncores,
-  type = "perc",
-  score = 6
-)
+climatch_par(recipient,
+
+source,
+
+globvar,
+
+biovar = 1:length(globvar),
+
+ncores,
+
+type = "perc",
+
+threshold = 6)
 }
 \arguments{
-\item{recipient}{List of dataframes of the recipient regions}
+\item{recipient}{List of data.frames of the recipient regions}
 
-\item{source}{List of dataframes of the source regions}
+\item{source}{List of dataf.rames of the source regions}
 
 \item{globvar}{Vector of the global variance of each variable}
 
@@ -25,18 +29,18 @@ climatch_par(
 
 \item{ncores}{The number of cores to use in parallel}
 
-\item{type}{Choose between 'perc' (default) or 'mean' passed to climatch() and 'vec' passes to climatch_vec()}
+\item{type}{Choose between "perc" (default) or "mean" passed to climatch() and "vec" passes to climatch_vec()}
 
-\item{score}{The score to use in calculating the percentage match, default is 6}
+\item{threshold}{The climatch score (0-10) to use in calculating the percentage match, which is the number of grid cells within the recipient region with a climatch >= the threshold (default is 6).}
 }
 \value{
-'perc' and 'mean' returns dataframe of climatch within recipients (rows) for each source represented in columns, 'vec' returns dataframe of climatch of a recipient (each column corresponds to grid cell), to sources (corresponding to rows)
+"perc" and "mean" returns data.frame of climatch within recipients (rows) for each source represented in columns, "vec" returns data.frame of climatch of a recipient (each column corresponds to grid cell), to sources (corresponding to rows)
 }
 \description{
 Run climatch in parallel
 }
 \examples{
-# example code
+# Dummy data
 i1 <- as.data.frame(matrix(runif(n=180, min=1, max=20), nrow=60)) # Fake source climate data
 i2 <- as.data.frame(matrix(runif(n=180, min=20, max=40), nrow=60))
 i <- list(i1, i2) # list the source dataframes
@@ -45,7 +49,8 @@ j2 <- as.data.frame(matrix(runif(n=300, min=20, max=50), nrow=100))
 j <- list(j1, j2) # list the recipient dataframes
 variance <- c(60, 800, 450) # Fake global variance
 
-climatch_par(recipient = j, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = 'perc')
-climatch_par(recipient = j1, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = 'vec')
+# Climate matching
+climatch_par(recipient = j, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = "perc")
+climatch_par(recipient = j1, source = i, biovar = 1:3, globvar = variance, ncores = 2, type = "vec")
 
 }
