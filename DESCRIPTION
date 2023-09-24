@@ -1,7 +1,7 @@
 Package: Euclimatch
 Type: Package
 Title: Euclidean Climatch Algorithm
-Version: 1.0.0
+Version: 1.0.1
 Authors@R:
       c(person(c("Justin", "A.", "G."), "Hubbard",
              role = c("aut", "cre"),

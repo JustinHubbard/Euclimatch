@@ -246,6 +246,23 @@ canada_feow_plot
 	<figcaption> The number of Neotropical freshwater ecoregions with a climate match >71.7% to freeshwater ecoregions of Canada under historical climatic conditions and climate change projection CanESM SSP3-7.0 2070.</figcaption>
 </p>
 
+## How to cite this package
+
+To cite package ‘Euclimatch’ in publications use:
+
+  Hubbard JAG, Drake DAR, Mandrak NE (2023). “Euclimatch: Euclidean Climatch Algorithm in
+  R.” R package version 1.0.0, <https://CRAN.R-project.org/package=Euclimatch>.
+
+A BibTeX entry for LaTeX users is
+
+  @Misc{,
+    title = {Euclimatch: Euclidean Climatch Algorithm in R},
+    author = {Justin A. G. Hubbard and D. Andrew R. Drake and Nicholas E. Mandrak},
+    year = {2023},
+    note = {R package version 1.0.0},
+    url = {https://CRAN.R-project.org/package=Euclimatch},
+  }
+
 
 ### References
 [1] Crombie, J., Brown, L., Lizzio, J., and Hood, G. 2008. Climatch user manual. Aust. Gov. Bur. Rural Sci.: 16.
