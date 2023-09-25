@@ -18,8 +18,8 @@ Climate matching is a method is used in biological risk assessment frameworks, s
 The `Euclimatch` package also provides functions to assist in climate data extraction and visualizations of climate match data, and offers the use of parallelization to maximize processing speed of larger datasets. To further quicken processing, the `climatch_vec()` function, the engine of the package, which runs the “Climatch” algorithm, was coded in `C++` and integrated with the Rcpp package [10]. This package imports and relies on the `terra` package [11] for working with the spatial data, such as extraction, and `foreach` [12] and `doParallel` [13] for parallel computing.
 
 ## Euclimatch Functions
-Function name   |  Description
--   |  ---
+|Function name   |  Description|
+|---   |  -----------|
 `extract_clim_data()` |  Extracts the climate data of single or multiple locations
 `climatch_vec()`      |  Runs “Climatch” algorithm, provides vector of climatch score (0-10) for each grid cell in the recipient region
 `climatch_sum()`  |  Provides a summary climatch score of the percentage of grid cells within recipient region(s)
@@ -259,7 +259,7 @@ A BibTeX entry for LaTeX users is
     title = {Euclimatch: Euclidean Climatch Algorithm in R},
     author = {Justin A. G. Hubbard and D. Andrew R. Drake and Nicholas E. Mandrak},
     year = {2023},
-    note = {R package version 1.0.0},
+    note = {R package version 1.0.1},
     url = {https://CRAN.R-project.org/package=Euclimatch},
   }
 
