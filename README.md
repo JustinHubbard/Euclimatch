@@ -4,6 +4,7 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/Euclimatch)](https://cran.r-project.org/package=Euclimatch)
 [![cran checks](https://badges.cranchecks.info/summary/Euclimatch.svg)](https://cran.r-project.org/web/checks/check_results_Euclimatch.html)
 [![Downloads last.mnth](https://cranlogs.r-pkg.org/badges/Euclimatch)](https://cran.r-project.org/package=Euclimatch)
+[![metacran downloads](https://cranlogs.r-pkg.org/badges/grand-total/Euclimatch)](https://cran.r-project.org/package=Euclimatch)
 <!--[![CRAN checks](https://cranchecks.info/badges/worst/Euclimatch)](https://cranchecks.info/pkgs/Euclimatch) -->
 <!-- badges: end -->
 
@@ -18,13 +19,8 @@ Climate matching is a method is used in biological risk assessment frameworks, s
 The `Euclimatch` package also provides functions to assist in climate data extraction and visualizations of climate match data, and offers the use of parallelization to maximize processing speed of larger datasets. To further quicken processing, the `climatch_vec()` function, the engine of the package, which runs the “Climatch” algorithm, was coded in `C++` and integrated with the Rcpp package [10]. This package imports and relies on the `terra` package [11] for working with the spatial data, such as extraction, and `foreach` [12] and `doParallel` [13] for parallel computing.
 
 ## Euclimatch Functions
-<<<<<<< HEAD
 Function name   |  Description
--   |  ---
-=======
-|Function name   |  Description|
 |---   |  -----------|
->>>>>>> add7a04409224b3017cf16a649027d906278c072
 `extract_clim_data()` |  Extracts the climate data of single or multiple locations
 `climatch_vec()`      |  Runs “Climatch” algorithm, provides vector of climatch score (0-10) for each grid cell in the recipient region
 `climatch_sum()`  |  Provides a summary climatch score of the percentage of grid cells within recipient region(s)
@@ -33,11 +29,7 @@ Function name   |  Description
 ---
 
 ## Installation
-<<<<<<< HEAD
 For Windows operating systems a recent verion of Rtools is required to compile the C++ code. See https://cran.r-project.org/bin/windows/Rtools/
-=======
-
->>>>>>> add7a04409224b3017cf16a649027d906278c072
 ```
 # Install from CRAN
 install.packages(“Euclimatch”)
