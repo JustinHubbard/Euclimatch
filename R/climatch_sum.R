@@ -13,7 +13,7 @@
 #'
 #' @usage climatch_sum(recipient, source, globvar, type = "perc", threshold = 6)
 #'
-#' @references Howeth, J.G. et al. 2016. Predicting invasiveness of species in trade: climate match, trophic guild and fecundity influence establishment and impact of non-native freshwater fishes. Divers. Distrib. 22(2): 148–160. https://doi.10.1111/ddi.12391.
+#' @references Predicting invasiveness of species in trade: climate match, trophic guild and fecundity influence establishment and impact of non-native freshwater fishes"<doi:10.1111/ddi.12391>
 #'
 #' @examples
 #' i <- as.data.frame(matrix(runif(n=180, min=1, max=20), nrow=60)) # Fake source climate data
