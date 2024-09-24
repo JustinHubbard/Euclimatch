@@ -18,8 +18,13 @@ Climate matching is a method is used in biological risk assessment frameworks, s
 The `Euclimatch` package also provides functions to assist in climate data extraction and visualizations of climate match data, and offers the use of parallelization to maximize processing speed of larger datasets. To further quicken processing, the `climatch_vec()` function, the engine of the package, which runs the “Climatch” algorithm, was coded in `C++` and integrated with the Rcpp package [10]. This package imports and relies on the `terra` package [11] for working with the spatial data, such as extraction, and `foreach` [12] and `doParallel` [13] for parallel computing.
 
 ## Euclimatch Functions
+<<<<<<< HEAD
 Function name   |  Description
 -   |  ---
+=======
+|Function name   |  Description|
+|---   |  -----------|
+>>>>>>> add7a04409224b3017cf16a649027d906278c072
 `extract_clim_data()` |  Extracts the climate data of single or multiple locations
 `climatch_vec()`      |  Runs “Climatch” algorithm, provides vector of climatch score (0-10) for each grid cell in the recipient region
 `climatch_sum()`  |  Provides a summary climatch score of the percentage of grid cells within recipient region(s)
@@ -28,7 +33,11 @@ Function name   |  Description
 ---
 
 ## Installation
+<<<<<<< HEAD
 For Windows operating systems a recent verion of Rtools is required to compile the C++ code. See https://cran.r-project.org/bin/windows/Rtools/
+=======
+
+>>>>>>> add7a04409224b3017cf16a649027d906278c072
 ```
 # Install from CRAN
 install.packages(“Euclimatch”)
@@ -243,6 +252,23 @@ canada_feow_plot
 	<img src="https://github.com/JustinHubbard/R.package.media.JH/blob/main/canada_feow_plot.png?raw=true" width="85%"/>
 	<figcaption> The number of Neotropical freshwater ecoregions with a climate match >71.7% to freeshwater ecoregions of Canada under historical climatic conditions and climate change projection CanESM SSP3-7.0 2070.</figcaption>
 </p>
+
+## How to cite this package
+
+To cite package ‘Euclimatch’ in publications use:
+
+  Hubbard JAG, Drake DAR, Mandrak NE (2023). “Euclimatch: Euclidean Climatch Algorithm in
+  R.” R package version 1.0.0, <https://CRAN.R-project.org/package=Euclimatch>.
+
+A BibTeX entry for LaTeX users is
+
+  @Misc{,
+    title = {Euclimatch: Euclidean Climatch Algorithm in R},
+    author = {Justin A. G. Hubbard and D. Andrew R. Drake and Nicholas E. Mandrak},
+    year = {2023},
+    note = {R package version 1.0.1},
+    url = {https://CRAN.R-project.org/package=Euclimatch},
+  }
 
 
 ### References
