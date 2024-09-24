@@ -28,5 +28,5 @@ climatch_vec(recipient = j, source = i, globvar = variance)
 
 }
 \references{
-Crombie, J., Brown, L., Lizzio, J., & Hood, G. (2008). Climatch user manual. Australian Government, Bureau of Rural Sciences.
+Crombie, J., Brown, L., Lizzio, J., & Hood, G. (2008). "Climatch user manual"
 }

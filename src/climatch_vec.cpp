@@ -14,7 +14,7 @@ using namespace Rcpp;
 //' @usage climatch_vec(recipient, source, globvar)
 //'
 //' @export
-//' @references Crombie, J., Brown, L., Lizzio, J., & Hood, G. (2008). Climatch user manual. Australian Government, Bureau of Rural Sciences.
+//' @references Crombie, J., Brown, L., Lizzio, J., & Hood, G. (2008). "Climatch user manual"
 //'
 //' @examples
 //' i <- as.data.frame(matrix(runif(n=180, min=1, max=20), nrow=60)) # Fake source climate data
